@@ -27,6 +27,9 @@ public class BarcodeFrame extends View {
     private int width;
     private int height;
     private int borderMargin;
+    private int offset = -1;
+    private int frameHeight = -1;
+
 
     private long previousFrameTime = System.currentTimeMillis();
     private int laserY;
@@ -64,8 +67,22 @@ public class BarcodeFrame extends View {
 
         frameRect.left = marginWidth;
         frameRect.right = width - marginWidth;
-        frameRect.top = marginHeight;
-        frameRect.bottom = height - marginHeight;
+
+        if(this.offset > 0){
+            frameRect.top = this.offset;
+
+            if(this.frameHeight > 0){
+                frameRect.bottom = this.offset + this.frameHeight;
+            }else {
+                //Using marginHeight calculation
+                frameRect.bottom = this.offset + (height - marginHeight) - marginHeight;
+            }
+        }
+        else{
+            frameRect.top = marginHeight;
+            frameRect.bottom = height - marginHeight;
+        }
+
     }
 
     @Override
@@ -99,6 +116,14 @@ public class BarcodeFrame extends View {
 
     public Rect getFrameRect() {
         return frameRect;
+    }
+
+    public void setFrameOffset(int frameOffset){
+        this.offset=frameOffset;
+    }
+
+    public void setFrameHeight(int frameHeight){
+        this.frameHeight = frameHeight;
     }
 
     public void setFrameColor(@ColorInt int borderColor) {

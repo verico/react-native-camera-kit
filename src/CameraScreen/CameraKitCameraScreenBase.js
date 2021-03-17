@@ -169,6 +169,8 @@ export default class CameraScreenBase extends Component {
               surfaceColor={this.props.surfaceColor}
               onReadCode = {this.props.onReadCode}
               scannerOptions = {this.state.scannerOptions}
+              frameOffset={this.props.frameOffset}
+              frameHeight={this.props.frameHeight}
             />
         }
       </View>
